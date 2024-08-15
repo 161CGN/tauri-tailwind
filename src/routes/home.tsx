@@ -1,6 +1,6 @@
 import { useState } from "react";
-import reactLogo from "../assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
+
 export default function Home() {
   const [greetMsg, setGreetMsg] = useState("");
   const [name, setName] = useState("");
@@ -11,28 +11,26 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-row h-full w-full m-10">
-      <div>
-        <div className="flex flex-col">
-          <h1>Welcome to Tauri!</h1>
+    <div className="flex items-center justify-center h-screen w-full">
+      <div className="text-center">
+        <h1 className="text-3xl">Welcome to Tauri!</h1>
 
-          <form
-            className="flex flex-row pt-5 gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              greet();
-            }}
-          >
-            <input
-              id="greet-input"
-              onChange={(e) => setName(e.currentTarget.value)}
-              placeholder="Enter a name..."
-            />
-            <button type="submit">Greet</button>
-          </form>
-
-          <p>{greetMsg}</p>
-        </div>
+        <form
+          className="flex flex-col items-center pt-5 gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            greet();
+          }}
+        >
+          <input
+            id="greet-input"
+            onChange={(e) => setName(e.currentTarget.value)}
+            placeholder="Enter a name..."
+            className="text-center rounded-lg"
+          />
+          <button type="submit">Greet</button>
+        </form>
+        <p>{greetMsg}</p>
       </div>
     </div>
   );

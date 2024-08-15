@@ -1,38 +1,37 @@
-import { Outlet } from "react-router-dom";
-import themes from "../utils/themes";
 import { useSettingsContext } from "../context/SettingsProvider";
 import clsx from "clsx";
 
 export default function Settings() {
   const { setTheme, theme: currentTheme } = useSettingsContext();
 
+  const toggleTheme = () => {
+    setTheme(currentTheme === 'light' ? 'dark' : 'light');
+  };
+
+  // Function to get system information
+  const getSystemInfo = () => {
+    return {
+      platform: navigator.platform,
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      online: navigator.onLine,
+    };
+  };
+
+  const systemInfo = getSystemInfo();
+
   return (
-    <div className="flex flex-row h-full w-full p-6">
-      <div className="dropdown">
-        <label tabIndex={0} className="btn m-1">
-          Choose Theme
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box max-h-60 w-52 overflow-y-scroll"
-        >
-          {themes.map((theme) => {
-            return (
-              <li
-                key={theme}
-                className={clsx("hover:bg-primary-focus w-ful p-2 rounded-md", {
-                  "bg-secondary-focus": theme === currentTheme,
-                })}
-                onClick={() => {
-                  setTheme(theme);
-                }}
-              >
-                {theme}
-              </li>
-            );
-          })}
+    <div className="flex flex-col h-full w-full p-6">
+      <div className="flex flex-col">
+        <h2>System Information</h2>
+        <ul className="w-3/5">
+          <li>Platform: {systemInfo.platform}</li>
+          <li>User Agent: {systemInfo.userAgent}</li>
+          <li>Language: {systemInfo.language}</li>
+          <li>Online: {systemInfo.online ? 'Yes' : 'No'}</li>
         </ul>
       </div>
+      {/* Future items can be added here */}
     </div>
   );
 }
